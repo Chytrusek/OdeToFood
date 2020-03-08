@@ -27,7 +27,7 @@ namespace OdeToFood
         
         public void OnGet()
         {
-            Message = config["Message"];
+            Message = config["AllowedHosts"];
             Restaurants = restaurantData.GetAll();
         }
     }
