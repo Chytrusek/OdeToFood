@@ -12,23 +12,22 @@ namespace OdeToFood
 {
     public class ListModel : PageModel
     {
-        private readonly IConfiguration config;
         private readonly IRestaurantData restaurantData;
 
-        public string Message { get; set; }
         public IEnumerable<Restaurant> Restaurants { get; set; }
 
-        public ListModel(IConfiguration config, 
-                         IRestaurantData restaurantData)
+        [BindProperty(SupportsGet = true)]
+        public string SearchTerm { get; set; }
+
+        public ListModel(IRestaurantData restaurantData)
         {
-            this.config = config;
             this.restaurantData = restaurantData;
         }
         
-        public void OnGet()
+        public void OnGet(string searchTerm)
         {
-            Message = config["AllowedHosts"];
-            Restaurants = restaurantData.GetAll();
+
+            Restaurants = restaurantData.GetRestaurantsByName(SearchTerm);
         }
     }
 }
